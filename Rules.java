@@ -12,62 +12,85 @@ import java.io.FileNotFoundException;
  */
 public class Rules
 {
-    final static String[] options = {"Random", "Date", "Password Length"};
-	static ArrayList<String> chars = new ArrayList();
-	final static String[] dateOptions = {“dd/mm/yyyy”, “mm/dd/yyyy, “dd-mm-yyyy”, “mm-dd-yyyy”};
-	static ArrayList<String> dates = new ArrayList();
-	GregorianCalendar cal = new Gregorian Calendar();
+    final static String[] options = {"Date", "Random"};
+    static ArrayList<String> input = new ArrayList();
+    static ArrayList<String> chars = new ArrayList();
+    final static String[] dateOptions = {"dd/mm/yyyy", "mm/dd/yyyy", "dd-mm-yyyy", "mm-dd-yyyy"};
+    static ArrayList<String> dates = new ArrayList();
+    static GregorianCalendar cal = new GregorianCalendar();
 
-
+    @SuppressWarnings("unchecked")
     public static void main(String[] args)
     throws FileNotFoundException
     {
-        ArrayList<String> input = new ArrayList<String>(userInput());
-		for (int i = 0; i < input.size(); i++)
-		{
-			if (input.get(i).compareTo(“Date”))
-			{
-				date();
-			}
-		}
-    }
-
-    /**
-     * The user inputs what the password contains.
-     *
-     * @post    postconditions for the method
-     *            (what the method guarantees upon completion)
-     * @param    y    description of parameter y
-     * @return    description of the return value
-     */
-    @SuppressWarnings("unchecked")
-    private static ArrayList<String> userInput()
-    {
-        ArrayList<String> input = new ArrayList();
-
-        String next;
-
         Scanner in = new Scanner(System.in);
-        System.out.println("Please select one of the options from the list:");
-        for (int i = 0; i < options.length; i++)
-        {
-            System.out.println("\t" + (i+1) + ". " + options[i]);
-        }
 
-        if (in.hasNext())
+        userInput();
+
+        for (int i = 0; i < input.size(); i++)
         {
-            for (int i = 0; i < options.length; i++)
+            if (input.get(i).compareTo("Date") == 0)
             {
-                next = in.next();
+                date();
+            }
+            else if (input.get(i).compareTo("Random") == 0)
+            {
+                if (in.hasNextInt())
                 {
-                    input.add(next);
+                    System.out.println("Enter the amount of random characters: ");
+                    rgen("", in.nextInt(), chars); 
+                    in.close();
+                }
+                else
+                {
+                    System.out.println("Please enter an integer number: ");
                 }
             }
         }
-        scanner.close();
-        return input;
     }
-    
+
+    /**
+    * The user inputs what the password contains.
+    *
+    * @post    postconditions for the method
+    *            (what the method guarantees upon completion)
+    * @param    y    description of parameter y
+    * @return    description of the return value
+    */
+    @SuppressWarnings("unchecked")
+    private static void userInput()
+    {
+        String next;
+
+        int close = 1;
+
+        Scanner in = new Scanner(System.in);
+        System.out.println("Please select one to three of the options from the list\n(separate each option with the enter key.\nWhen you have finished, type Done (CaSe sEnsItiVe):");
+        for (int i = 0; i < options.length; i++)
+        {
+            System.out.println("\t" + options[i]);
+        }
+
+        for (int i = 0; i < options.length; i++)
+        {
+            if (close != 0)
+            {
+                next = in.next();
+                if (next.compareTo("Done") != 0)
+                {
+                    input.add(next);
+                }
+                else
+                {
+                    in.close();
+                    close = 0;
+                }
+            }
+        }
+
+    }
+
+    @SuppressWarnings("unchecked")
     private static String rgen(String str, int count, ArrayList<String> chars)
     {
         if (count == 0)
@@ -76,7 +99,7 @@ public class Rules
         }
         else
         {
-            for (int i = o; i < chars.size(); i++)
+            for (int i = 0; i < chars.size(); i++)
             {
                 str +=  (String)chars.get(i);
                 count--;
@@ -84,8 +107,10 @@ public class Rules
                 System.out.println(str);
             }
         }
+        return str;
     }
 
+    @SuppressWarnings("unchecked")
     private static void charChoice()
     {
         Scanner in = new Scanner(System.in);
@@ -94,48 +119,65 @@ public class Rules
         {
             chars.add(in.next());
         }
-		in.close();
+        in.close();
     }
 
-	private static void date()
-	{
-		Scanner in = new Scanner(System.in);
-		for (int i = 0; i < dateOptions.length; i++)
+    @SuppressWarnings("unchecked")
+    private static void date()
+    {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Please enter which date option you would like to use (CaSe sEnsItiVe):");
+        for (int i = 0; i < dateOptions.length; i++)
         {
             System.out.println("\t" + (i+1) + ". " + dateOptions[i]);
         }
+        if (in.next().compareTo(dateOptions[0]) == 0)
+        {
+            dates.add((String)getDay() + "/" + (String)getMonth() + "/" + (String)getYear());
+        }
+        else if (in.next().compareTo(dateOptions[1]) == 0)
+        {
+            dates.add((String)getMonth() + "/" + (String)getDay() + "/" + (String)getYear());
+        }
+        else if (in.next().compareTo(dateOptions[2]) == 0)
+        {
+            dates.add((String)getDay() + "-" + (String)getMonth() + "-" + (String)getYear());
+        }
+        else if (in.next().compareTo(dateOptions[3]) == 0)
+        {
+            dates.add((String)getMonth() + "-" + (String)getDay() + "-" + (String)getYear());
+        }
+    }
 
-		if (in.next().compareTo(dateOptions[0]))
-		{
-			dates.add((String)day() + “/” + (String)month() + “/” + (String)year());
-		}
-     if (in.next().compareTo(dateOptions[1]))
-		{
-			dates.add((String)month() + “/” + (String)day() + “/” + (String)year());
-		}
-		if (in.next().compareTo(dateOptions[2]))
-		{
-			dates.add((String)day() + “-” + (String)month() + “-” + (String)year());
-		}
-		if (in.next().compareTo(dateOptions[3]))
-		{
-			dates.add((String)month() + “-” + (String)day() + “-” + (String)year());
-		}
-		in.close();
-	}
-	
-	private static String year()
-	{
-		return (String)cal.get(Calendar.YEAR);
-	}
+    @SuppressWarnings("unchecked")
+    private static String getDay()
+    {
+        int day = cal.get(cal.DAY_OF_MONTH) + 1;
+        String sDay;
+        if (day > 9)
+        {
+            sDay = Integer.toString(day);
+        }
+        else
+        {
+            sDay = "0" + Integer.toString(day);
+        }
+        return sDay;
+    }
 
-	private static String day()
-	{
-		return (String)cal.get(Calendar.DAY_OF_MONTH);
-	}
-	
-	private static String month()
-	{
-		return (String)cal.get(Calendar.Month);
-	}
+    @SuppressWarnings("unchecked")
+    private static String getMonth()
+    {
+        int month = cal.get(cal.MONTH) + 1;
+        String sMonth = "0" + Integer.toString(month);
+        return sMonth;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static String getYear()
+    {
+        int year = cal.get(cal.YEAR);
+        String sYear = Integer.toString(year);
+        return sYear;
+    }
 }
