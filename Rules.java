@@ -51,11 +51,8 @@ public class Rules
 
     /**
     * The user inputs what the password contains.
-    *
-    * @post    postconditions for the method
-    *            (what the method guarantees upon completion)
-    * @param    y    description of parameter y
-    * @return    description of the return value
+    * 
+    * @pre      the user will choose either 0, 1, or 2 options
     */
     @SuppressWarnings("unchecked")
     private static void userInput()
@@ -90,7 +87,13 @@ public class Rules
 
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+    * Calculates the current year.
+    *
+    * @pre      The year in the hash is the current year.
+    * @post    the year is returned as a string
+    * @return    sYear  a string of the current year
+    */
     private static String rgen(String str, int count, ArrayList<String> chars)
     {
         if (count == 0)
@@ -110,7 +113,13 @@ public class Rules
         return str;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+    * Calculates the current year.
+    *
+    * @pre      The year in the hash is the current year.
+    * @post    the year is returned as a string
+    * @return    sYear  a string of the current year
+    */
     private static void charChoice()
     {
         Scanner in = new Scanner(System.in);
@@ -122,6 +131,13 @@ public class Rules
         in.close();
     }
 
+    /**
+    * Uses the day, month, and year to build the date to user's specifications
+    *
+    * @pre      The year in the hash is the current year.
+    * @post    the year is returned as a string
+    * @return    sYear  a string of the current year
+    */
     @SuppressWarnings("unchecked")
     private static void date()
     {
@@ -149,7 +165,13 @@ public class Rules
         }
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+    * Calculates the current day.
+    *
+    * @pre      The day in the hash is the current day.
+    * @post    the day is returned as an integer, as a string
+    * @return    sDay  a string of the current day
+    */
     private static String getDay()
     {
         int day = cal.get(cal.DAY_OF_MONTH) + 1;
@@ -165,7 +187,13 @@ public class Rules
         return sDay;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+    * Calculates the current month.
+    *
+    * @pre      The month in the hash is the current month
+    * @post    the month is returned as an integer, as a string
+    * @return    sMonth  a string of the current month
+    */
     private static String getMonth()
     {
         int month = cal.get(cal.MONTH) + 1;
@@ -173,7 +201,13 @@ public class Rules
         return sMonth;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+    * Calculates the current year.
+    *
+    * @pre      The year in the hash is the current year
+    * @post    the year is returned as a string
+    * @return    sYear  a string of the current year
+    */
     private static String getYear()
     {
         int year = cal.get(cal.YEAR);
