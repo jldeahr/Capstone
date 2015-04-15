@@ -12,18 +12,33 @@ import java.io.FileNotFoundException;
  */
 public class Rules
 {
+    //List of the possible options for the user to choose from for parts of the password
     final static String[] options = {"Date", "Random"};
-    static ArrayList<String> input = new ArrayList();
-    static ArrayList<String> chars = new ArrayList();
+    
+    //List of the options the user has chosen for parts of the password
+    static ArrayList<String> input = new ArrayList<String>();
+    
+    //List of the possible characters to be used in the random password
+    static ArrayList<String> chars = new ArrayList<String>();
+    
+    //List of the possible formats for the user to choose from for the date option
     final static String[] dateOptions = {"dd/mm/yyyy", "mm/dd/yyyy", "dd-mm-yyyy", "mm-dd-yyyy"};
-    static ArrayList<String> dates = new ArrayList();
+    
+    //The calendar used to find the current day, month, and year
     static GregorianCalendar cal = new GregorianCalendar();
 
-    @SuppressWarnings("unchecked")
+    /**
+    * The main method of the Rules class.
+    * Runs the necessary methods to write the possible passwords to a file.
+    * 
+    * @pre      the user will choose either 0, 1, or 2 options
+    */
     public static void main(String[] args)
     throws FileNotFoundException
     {
         Scanner in = new Scanner(System.in);
+        
+        String curDate;
 
         userInput();
 
@@ -31,13 +46,13 @@ public class Rules
         {
             if (input.get(i).compareTo("Date") == 0)
             {
-                date();
+                curDate = date();
             }
             else if (input.get(i).compareTo("Random") == 0)
             {
+                System.out.println("Enter the amount of random characters: ");
                 if (in.hasNextInt())
                 {
-                    System.out.println("Enter the amount of random characters: ");
                     rgen("", in.nextInt(), chars); 
                     in.close();
                 }
@@ -54,7 +69,6 @@ public class Rules
     * 
     * @pre      the user will choose either 0, 1, or 2 options
     */
-    @SuppressWarnings("unchecked")
     private static void userInput()
     {
         String next;
@@ -62,7 +76,7 @@ public class Rules
         int close = 1;
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Please select one to three of the options from the list\n(separate each option with the enter key.\nWhen you have finished, type Done (CaSe sEnsItiVe):");
+        System.out.println("Please select one to three of the options from the list\n(separate each option with the enter key).\nWhen you have finished, type Done (CaSe sEnsItiVe):");
         for (int i = 0; i < options.length; i++)
         {
             System.out.println("\t" + options[i]);
@@ -114,11 +128,9 @@ public class Rules
     }
 
     /**
-    * Calculates the current year.
+    * Adds the specified characters of a part of the password to an ArrayList.
     *
-    * @pre      The year in the hash is the current year.
-    * @post    the year is returned as a string
-    * @return    sYear  a string of the current year
+    * @post    ArrayList chars contains the potential characters of the random password.
     */
     private static void charChoice()
     {
@@ -132,43 +144,57 @@ public class Rules
     }
 
     /**
-    * Uses the day, month, and year to build the date to user's specifications
+    * Uses the day, month, and year to build the date to user's specifications.
     *
-    * @pre      The year in the hash is the current year.
-    * @post    the year is returned as a string
-    * @return    sYear  a string of the current year
+    * @pre      The format of the date is one of the four options
+    *           (mm/dd/yyyy , dd/mm/yyyy , mm-dd-yyyy , dd-mm-yyyy)
+    * @post    the current date is constructed in the format which the user specified
+    * @return   the current date in the format the user specified
     */
-    @SuppressWarnings("unchecked")
-    private static void date()
+    private static String date()
     {
         Scanner in = new Scanner(System.in);
+        
+        String date = "";
+        
         System.out.println("Please enter which date option you would like to use (CaSe sEnsItiVe):");
         for (int i = 0; i < dateOptions.length; i++)
         {
             System.out.println("\t" + (i+1) + ". " + dateOptions[i]);
         }
-        if (in.next().compareTo(dateOptions[0]) == 0)
+        String choice = in.next();
+        if (choice.compareTo(dateOptions[0]) == 0)
         {
-            dates.add((String)getDay() + "/" + (String)getMonth() + "/" + (String)getYear());
+            date = ((String)getDay() + "/" + (String)getMonth() + "/" + (String)getYear());
         }
-        else if (in.next().compareTo(dateOptions[1]) == 0)
+        else if (choice.compareTo(dateOptions[1]) == 0)
         {
-            dates.add((String)getMonth() + "/" + (String)getDay() + "/" + (String)getYear());
+            date = ((String)getMonth() + "/" + (String)getDay() + "/" + (String)getYear());
         }
-        else if (in.next().compareTo(dateOptions[2]) == 0)
+        else if (choice.compareTo(dateOptions[2]) == 0)
         {
-            dates.add((String)getDay() + "-" + (String)getMonth() + "-" + (String)getYear());
+            date = ((String)getDay() + "-" + (String)getMonth() + "-" + (String)getYear());
         }
-        else if (in.next().compareTo(dateOptions[3]) == 0)
+        else if (choice.compareTo(dateOptions[3]) == 0)
         {
-            dates.add((String)getMonth() + "-" + (String)getDay() + "-" + (String)getYear());
+            date = ((String)getMonth() + "-" + (String)getDay() + "-" + (String)getYear());
         }
+        if (date == "")
+        {
+            System.out.println("That option was not valid. Please try again.");
+            date();
+        }
+        else
+        {
+            System.out.println("The date is: " + date);
+        }
+        return date;
     }
 
     /**
     * Calculates the current day.
     *
-    * @pre      The day in the hash is the current day.
+    * @pre      The day in the hash is the current day
     * @post    the day is returned as an integer, as a string
     * @return    sDay  a string of the current day
     */
