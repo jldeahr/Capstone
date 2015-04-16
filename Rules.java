@@ -21,6 +21,9 @@ public class Rules
     //List of the possible characters to be used in the random password
     static ArrayList<String> chars = new ArrayList<String>();
     
+    //List of the possible random passwords the user specified
+    static ArrayList<String> passes = new ArrayList<String>();
+    
     //List of the possible formats for the user to choose from for the date option
     final static String[] dateOptions = {"dd/mm/yyyy", "mm/dd/yyyy", "dd-mm-yyyy", "mm-dd-yyyy"};
     
@@ -50,7 +53,8 @@ public class Rules
             }
             else if (input.get(i).compareTo("Random") == 0)
             {
-                System.out.println("Enter the amount of random characters: ");
+                charChoice();
+                System.out.println("Enter the amount of random characters (cannot be greater than " + chars.size() + "): ");
                 if (in.hasNextInt())
                 {
                     rgen("", in.nextInt(), chars); 
@@ -60,6 +64,10 @@ public class Rules
                 {
                     System.out.println("Please enter an integer number: ");
                 }
+            }
+            else if ((input.get(i).compareTo("Random") == 0 || input.get(i).compareTo("Date") == 0) && (input.get(i).compareTo("Random") == 0 || input.get(i).compareTo("Date") == 0))
+            {
+                
             }
         }
     }
@@ -76,7 +84,7 @@ public class Rules
         int close = 1;
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Please select one to three of the options from the list\n(separate each option with the enter key).\nWhen you have finished, type Done (CaSe sEnsItiVe):");
+        System.out.println("Please select one to three of the options from the list\n(separate each option with the enter key).\nWhen you have finished, type 'Done' (CaSe sEnsItiVe):");
         for (int i = 0; i < options.length; i++)
         {
             System.out.println("\t" + options[i]);
@@ -87,7 +95,7 @@ public class Rules
             if (close != 0)
             {
                 next = in.next();
-                if (next.compareTo("Done") != 0)
+                if (next.compareTo("Done") != 0 || next.compareTo("done") != 0)
                 {
                     input.add(next);
                 }
@@ -108,23 +116,24 @@ public class Rules
     * @post    the year is returned as a string
     * @return    sYear  a string of the current year
     */
-    private static String rgen(String str, int count, ArrayList<String> chars)
+    private static void rgen(String str, int count, ArrayList<String> chars)
     {
-        if (count == 0)
+        String pwd = str;
+        int counter = count;
+        if (counter < 0)
         {
-            return str;
+            passes.add(pwd);;
         }
         else
         {
             for (int i = 0; i < chars.size(); i++)
             {
-                str +=  (String)chars.get(i);
-                count--;
-                rgen(str,count,chars);
+                pwd += chars.get(i);
+                counter--;
+                rgen(pwd,counter,chars);
                 System.out.println(str);
             }
         }
-        return str;
     }
 
     /**
@@ -134,11 +143,22 @@ public class Rules
     */
     private static void charChoice()
     {
+        int close = 1;
+        String next;
         Scanner in = new Scanner(System.in);
-        System.out.println("Enter the possible characters (separated by enter): ");
-        while (in.hasNext())
+        System.out.println("Enter the possible characters (separated by enter)\n(separate each character with the enter key).\nWhen you have finished, type 'Done' (CaSe sEnsItiVe):");
+        while (close != 0)
         {
-            chars.add(in.next());
+            next = in.nextLine();
+            if (next.compareTo("Done") != 0 || next.compareTo("done") != 0)
+                {
+                    chars.add(next);
+                }
+                else
+                {
+                    in.close();
+                    close = 0;
+                }
         }
         in.close();
     }
@@ -165,19 +185,19 @@ public class Rules
         String choice = in.next();
         if (choice.compareTo(dateOptions[0]) == 0)
         {
-            date = ((String)getDay() + "/" + (String)getMonth() + "/" + (String)getYear());
+            date = (getDay() + "/" + getMonth() + "/" + getYear());
         }
         else if (choice.compareTo(dateOptions[1]) == 0)
         {
-            date = ((String)getMonth() + "/" + (String)getDay() + "/" + (String)getYear());
+            date = (getMonth() + "/" + getDay() + "/" + getYear());
         }
         else if (choice.compareTo(dateOptions[2]) == 0)
         {
-            date = ((String)getDay() + "-" + (String)getMonth() + "-" + (String)getYear());
+            date = (getDay() + "-" + getMonth() + "-" + getYear());
         }
         else if (choice.compareTo(dateOptions[3]) == 0)
         {
-            date = ((String)getMonth() + "-" + (String)getDay() + "-" + (String)getYear());
+            date = (getMonth() + "-" + getDay() + "-" + getYear());
         }
         if (date == "")
         {
