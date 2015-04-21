@@ -14,36 +14,38 @@ public class Rules
 {
     //List of the possible options for the user to choose from for parts of the password
     final static String[] options = {"Date", "Random"};
-    
+
     //List of the options the user has chosen for parts of the password
     static ArrayList<String> input = new ArrayList<String>();
-    
+
     //List of the possible characters to be used in the random password
     static ArrayList<String> chars = new ArrayList<String>();
-    
+
     //List of the possible random passwords the user specified
     static ArrayList<String> passes = new ArrayList<String>();
-    
+
     //List of the possible formats for the user to choose from for the date option
     final static String[] dateOptions = {"dd/mm/yyyy", "mm/dd/yyyy", "dd-mm-yyyy", "mm-dd-yyyy"};
-    
+
     //The calendar used to find the current day, month, and year
     static GregorianCalendar cal = new GregorianCalendar();
 
     /**
-    * The main method of the Rules class.
-    * Runs the necessary methods to write the possible passwords to a file.
-    * 
-    * @pre      the user will choose either 0, 1, or 2 options
-    */
+     * The main method of the Rules class.
+     * Runs the necessary methods to write the possible passwords to a file.
+     * 
+     * @pre      the user will choose either 0, 1, or 2 options
+     */
     public static void main(String[] args)
     throws FileNotFoundException
     {
         Scanner in = new Scanner(System.in);
-        
+
         String curDate;
 
         userInput();
+        
+        int count;
 
         for (int i = 0; i < input.size(); i++)
         {
@@ -57,7 +59,12 @@ public class Rules
                 System.out.println("Enter the amount of random characters (cannot be greater than " + chars.size() + "): ");
                 if (in.hasNextInt())
                 {
-                    rgen("", in.nextInt(), chars); 
+                    for (int j = 0; j < chars.size(); j++)
+                    {
+                        System.out.println(chars.get(j));
+                    }
+                    count = in.nextInt();
+                    gen("", count, count, chars); 
                     in.close();
                 }
                 else
@@ -65,18 +72,18 @@ public class Rules
                     System.out.println("Please enter an integer number: ");
                 }
             }
-            else if ((input.get(i).compareTo("Random") == 0 || input.get(i).compareTo("Date") == 0) && (input.get(i).compareTo("Random") == 0 || input.get(i).compareTo("Date") == 0))
+            else if ((input.get(i).compareTo("Random") == 0 && input.get(i+1).compareTo("Date") == 0) || (input.get(i).compareTo("Random") == 0 && input.get(i+1).compareTo("Date") == 0))
             {
-                
+
             }
         }
     }
 
     /**
-    * The user inputs what the password contains.
-    * 
-    * @pre      the user will choose either 0, 1, or 2 options
-    */
+     * The user inputs what the password contains.
+     * 
+     * @pre      the user will choose either 0, 1, or 2 options
+     */
     private static void userInput()
     {
         String next;
@@ -110,37 +117,44 @@ public class Rules
     }
 
     /**
-    * Calculates the current year.
-    *
-    * @pre      The year in the hash is the current year.
-    * @post    the year is returned as a string
-    * @return    sYear  a string of the current year
-    */
-    private static void rgen(String str, int count, ArrayList<String> chars)
+     * Generates a list of strings in a not so random order.
+     *
+     * @pre      The characters entered are individual characters.
+     * @post    the year is returned as a string
+     * @return    sYear  a string of the current year
+     */
+    private static void gen(String str, int count, int count2, ArrayList<String> chars)
     {
         String pwd = str;
         int counter = count;
-        if (counter < 0)
+        int len = count2;
+        if (counter == 0)
         {
-            passes.add(pwd);;
+            if (pwd.length() == len)
+            {
+                passes.add(pwd);
+            }
         }
         else
         {
             for (int i = 0; i < chars.size(); i++)
             {
-                pwd += chars.get(i);
-                counter--;
-                rgen(pwd,counter,chars);
-                System.out.println(str);
+                String character = pwd + chars.get(i);
+                gen(character,counter-1,len,chars);
             }
+        }
+        
+        if (pwd.length() == len)
+        {
+            System.out.println(pwd);
         }
     }
 
     /**
-    * Adds the specified characters of a part of the password to an ArrayList.
-    *
-    * @post    ArrayList chars contains the potential characters of the random password.
-    */
+     * Adds the specified characters of a part of the password to an ArrayList.
+     *
+     * @post    ArrayList chars contains the potential characters of the random password.
+     */
     private static void charChoice()
     {
         int close = 1;
@@ -150,33 +164,33 @@ public class Rules
         while (close != 0)
         {
             next = in.nextLine();
-            if (next.compareTo("Done") != 0 || next.compareTo("done") != 0)
-                {
-                    chars.add(next);
-                }
-                else
-                {
-                    in.close();
-                    close = 0;
-                }
+            if (next.compareTo("Done") == 0 || next.compareTo("done") == 0)
+            {
+                in.close();
+                close = 0;
+            }
+            else
+            {
+                chars.add(next);
+            }
         }
         in.close();
     }
 
     /**
-    * Uses the day, month, and year to build the date to user's specifications.
-    *
-    * @pre      The format of the date is one of the four options
-    *           (mm/dd/yyyy , dd/mm/yyyy , mm-dd-yyyy , dd-mm-yyyy)
-    * @post    the current date is constructed in the format which the user specified
-    * @return   the current date in the format the user specified
-    */
+     * Uses the day, month, and year to build the date to user's specifications.
+     *
+     * @pre      The format of the date is one of the four options
+     *           (mm/dd/yyyy , dd/mm/yyyy , mm-dd-yyyy , dd-mm-yyyy)
+     * @post    the current date is constructed in the format which the user specified
+     * @return   the current date in the format the user specified
+     */
     private static String date()
     {
         Scanner in = new Scanner(System.in);
-        
+
         String date = "";
-        
+
         System.out.println("Please enter which date option you would like to use (CaSe sEnsItiVe):");
         for (int i = 0; i < dateOptions.length; i++)
         {
@@ -212,12 +226,12 @@ public class Rules
     }
 
     /**
-    * Calculates the current day.
-    *
-    * @pre      The day in the hash is the current day
-    * @post    the day is returned as an integer, as a string
-    * @return    sDay  a string of the current day
-    */
+     * Calculates the current day.
+     *
+     * @pre      The day in the hash is the current day
+     * @post    the day is returned as an integer, as a string
+     * @return    sDay  a string of the current day
+     */
     private static String getDay()
     {
         int day = cal.get(cal.DAY_OF_MONTH) + 1;
@@ -234,12 +248,12 @@ public class Rules
     }
 
     /**
-    * Calculates the current month.
-    *
-    * @pre      The month in the hash is the current month
-    * @post    the month is returned as an integer, as a string
-    * @return    sMonth  a string of the current month
-    */
+     * Calculates the current month.
+     *
+     * @pre      The month in the hash is the current month
+     * @post    the month is returned as an integer, as a string
+     * @return    sMonth  a string of the current month
+     */
     private static String getMonth()
     {
         int month = cal.get(cal.MONTH) + 1;
@@ -248,12 +262,12 @@ public class Rules
     }
 
     /**
-    * Calculates the current year.
-    *
-    * @pre      The year in the hash is the current year
-    * @post    the year is returned as a string
-    * @return    sYear  a string of the current year
-    */
+     * Calculates the current year.
+     *
+     * @pre      The year in the hash is the current year
+     * @post    the year is returned as a string
+     * @return    sYear  a string of the current year
+     */
     private static String getYear()
     {
         int year = cal.get(cal.YEAR);

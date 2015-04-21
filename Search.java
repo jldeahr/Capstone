@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Search
 {
-    public static void main(String[] args)
+    public void Search()
     {
         int hcount = 0;
         int wcount = -1;
