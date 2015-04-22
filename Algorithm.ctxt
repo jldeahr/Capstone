@@ -1,13 +1,11 @@
 #BlueJ class context
 comment0.params=
-comment0.target=Algorithm()
-comment0.text=\r\n\ Initializes\ String\ h\ as\ the\ string\ to\ be\ hashed.\r\n\ When\ other\ algorithms\ are\ implemented,\ there\ will\ be\ another\ parameter\ for\ the\ algorithm\r\n
-comment1.params=
-comment1.target=void\ hash()
-comment2.params=password
-comment2.target=java.lang.String\ encryptPassword(java.lang.String)
-comment2.text=\r\n\ Encrypts\ the\ string\ into\ a\ SHA1\ hash.\r\n\r\n\ @pre\ \ \ \ \ \ \ \ password\ is\ a\ string\r\n\ @post\ \ \ \ password\ will\ be\ returned\ as\ a\ hashed\ string\r\n\ @param\ \ \ \ password\ \ \ the\ password\ to\ be\ encrypted\r\n\ @return\ \ \ \ sha1\ as\ an\ encrypted\ string\r\n
-comment3.params=hash
-comment3.target=java.lang.String\ byteToHex(byte[])
-comment3.text=\r\n\ Changes\ the\ byte\ value\ to\ a\ hex\ value\r\n\r\n\ @pre\ \ \ \ \ \ \ \ hash\ is\ an\ array\r\n\ @post\ \ \ \ result\ will\ be\ returned\ as\ a\ string\r\n\ @param\ \ \ \ hash\ \ \ the\ byte\ value\ to\ be\ changed\ to\ hex\r\n\ @return\ \ \ \ result\ as\ a\ hex\ string\r\n
-numComments=4
+comment0.target=void\ hash()
+comment0.text=\r\n\ Writes\ newly\ hashed\ passwords\ from\ unhashed.txt\ to\ hashes.txt.\r\n\ \r\n\ @pre\ \ \ \ \ unhashed.txt\ already\ contains\ unhashed\ passwords\r\n\ @post\ \ \ \ a\ list\ of\ hashes\ will\ be\ written\ to\ hashes.txt\r\n
+comment1.params=password
+comment1.target=java.lang.String\ hashPassword(java.lang.String)
+comment1.text=\r\n\ Hashes\ the\ given\ string\ into\ a\ SHA1\ hash.\r\n\r\n\ @pre\ \ \ \ \ \ \ \ password\ is\ a\ string\r\n\ @post\ \ \ \ password\ will\ be\ returned\ as\ a\ hashed\ string\r\n\ @param\ \ \ \ password\ \ \ the\ password\ to\ be\ encrypted\r\n\ @return\ \ \ \ sha1\ as\ an\ encrypted\ string\r\n
+comment2.params=hash
+comment2.target=java.lang.String\ byteToHex(byte[])
+comment2.text=\r\n\ Changes\ the\ byte\ value\ to\ a\ hex\ value\r\n\r\n\ @pre\ \ \ \ \ \ \ \ hash\ is\ an\ array\r\n\ @post\ \ \ \ result\ will\ be\ returned\ as\ a\ string\r\n\ @param\ \ \ \ hash\ \ \ the\ byte\ value\ to\ be\ changed\ to\ hex\r\n\ @return\ \ \ \ result\ as\ a\ hex\ string\r\n
+numComments=3

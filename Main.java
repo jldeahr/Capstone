@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Main
 {
-    public void main(String[] args)
+    public static void main(String[] args)
     throws FileNotFoundException
     {
         Rules r = new Rules();
@@ -25,6 +25,8 @@ public class Main
         Algorithm a = new Algorithm();
         a.hash();
         
-        Search s = new Search
+        Search s = new Search();
+        String str = s.find();
+        System.out.println(str);
     }
 }

@@ -1,4 +1,5 @@
 #BlueJ class context
 comment0.params=
-comment0.target=void\ Search()
+comment0.target=java.lang.String\ find()
+comment0.text=\r\n\ Searches\ for\ the\ password\ belonging\ to\ the\ hash\ the\ user\ enters\r\n\ \r\n\ @pre\ \ \ \ \ unhashed.txt\ already\ contains\ unhashed\ passwords\r\n\ \ \ \ \ \ \ \ \ \ hashes.txt\ already\ contains\ hashed\ passwords\r\n\ \ \ \ \ \ \ \ \ \ \r\n\ @post\ \ \ \ the\ password\ is\ found\ and\ returned\r\n\ \r\n\ @return\ \ pass\ \ \ \ the\ password\ belonging\ to\ the\ hash\ the\ user\ enters\r\n\ \ \ \ \ \ \ \ \ \ "Password\ not\ found"\ \ \ \ if\ the\ password\ is\ not\ found\r\n
 numComments=1
