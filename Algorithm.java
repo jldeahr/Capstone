@@ -1,7 +1,11 @@
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.io.File;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.util.Formatter;
+import java.util.Scanner;
 
 /**
  * This class will encrypt the given string into the hash of the given algorithm.
@@ -12,17 +16,26 @@ import java.util.Formatter;
  */
 public class Algorithm
 {
-    //The string to be hashed
-    String h;
-    
     /**
      * Initializes String h as the string to be hashed.
      * When other algorithms are implemented, there will be another parameter for the algorithm
      */
-    public Algorithm(String toHash)
+    public Algorithm()
     {
-        // the string to be hashed
-        h = toHash;
+
+    }
+    
+    public void hash()
+    throws FileNotFoundException
+    {
+        PrintWriter out = new PrintWriter("hashes.txt");
+        Scanner in = new Scanner(new File("unhashed.txt"));
+        String str;
+        String hash;
+        str = in.nextLine();
+        hash = encryptPassword(str);
+        out.println(hash);
+        
     }
 
     /**
@@ -72,16 +85,5 @@ public class Algorithm
         String result = formatter.toString();
         formatter.close();
         return result;
-    }
-
-    /**
-     * Gets the new hash value of the string
-     * 
-     * @post    the newly hashed password will be returned as a string
-     * @return  hash    the hash of the encrypted string
-     */
-    private String getHash()
-    {
-        return encryptPassword(h);
     }
 }

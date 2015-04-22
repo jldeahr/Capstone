@@ -2,7 +2,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.io.File;
+import java.io.PrintWriter;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * This class will allow the user to define the specific rules of the password list.
@@ -36,45 +39,118 @@ public class Rules
      * 
      * @pre      the user will choose either 0, 1, or 2 options
      */
-    public static void main(String[] args)
+    public static void rulesMain()
     throws FileNotFoundException
     {
         Scanner in = new Scanner(System.in);
 
+        PrintWriter out = new PrintWriter("unhashed.txt");
+
         String curDate;
 
         userInput();
-        
+
         int count;
+
+        boolean check = true;
+        boolean check2 = true;
 
         for (int i = 0; i < input.size(); i++)
         {
-            if (input.get(i).compareTo("Date") == 0)
+            while (check2)
             {
-                curDate = date();
-            }
-            else if (input.get(i).compareTo("Random") == 0)
-            {
-                charChoice();
-                System.out.println("Enter the amount of random characters (cannot be greater than " + chars.size() + "): ");
-                if (in.hasNextInt())
+                if (input.get(i).compareTo("Date") == 0)
                 {
-                    for (int j = 0; j < chars.size(); j++)
+                    curDate = date();
+                    out.println(curDate);
+                    check2 = false;
+                }
+                else if (input.get(i).compareTo("Random") == 0)
+                {
+                    while (check)
                     {
-                        System.out.println(chars.get(j));
+                        charChoice();
+                        System.out.println("Enter the amount of random characters (cannot be greater than " + chars.size() + "): ");
+                        if (in.hasNextInt())
+                        {
+                            check = false;
+                            count = in.nextInt();
+                            gen("", count, count, chars); 
+                            in.close();
+
+                            for (int j = 0; j < passes.size(); j++)
+                            {
+                                out.println(passes.get(i));
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("Please enter an integer number: ");
+                        }
                     }
-                    count = in.nextInt();
-                    gen("", count, count, chars); 
-                    in.close();
+                    
+                    check2 = false;
+                }
+                else if ((input.get(i).compareTo("Random") == 0 && input.get(i+1).compareTo("Date") == 0) || (input.get(i).compareTo("random") == 0 && input.get(i+1).compareTo("date") == 0))
+                {
+                    while (check)
+                    {
+                        charChoice();
+                        System.out.println("Enter the amount of random characters (cannot be greater than " + chars.size() + "): ");
+                        if (in.hasNextInt())
+                        {
+                            check = false;
+                            count = in.nextInt();
+                            gen("", count, count, chars); 
+                            in.close();
+                        }
+                        else
+                        {
+                            System.out.println("Please enter an integer number: ");
+                        }
+
+                        curDate = date();
+
+                        for (int k = 0; k < passes.size(); k++)
+                        {
+                            out.println(passes.get(i) + curDate);
+                        }
+                    }
+                    
+                    check2 = false;
+                }
+                else if ((input.get(i).compareTo("Date") == 0 && input.get(i+1).compareTo("Random") == 0) || (input.get(i).compareTo("date") == 0 && input.get(i+1).compareTo("random") == 0))
+                {
+                    while (check)
+                    {
+                        charChoice();
+                        System.out.println("Enter the amount of random characters (cannot be greater than " + chars.size() + "): ");
+                        if (in.hasNextInt())
+                        {
+                            check = false;
+                            count = in.nextInt();
+                            gen("", count, count, chars); 
+                            in.close();
+                        }
+                        else
+                        {
+                            System.out.println("Please enter an integer number: ");
+                        }
+
+                        curDate = date();
+
+                        for (int l = 0; l < passes.size(); l++)
+                        {
+                            out.println(curDate + passes.get(i));
+                        }
+                    }
+                    
+                    check2 = false;
                 }
                 else
                 {
-                    System.out.println("Please enter an integer number: ");
+                    System.out.println("One or more of your options entered was not valid.\nPlease try again.");
                 }
-            }
-            else if ((input.get(i).compareTo("Random") == 0 && input.get(i+1).compareTo("Date") == 0) || (input.get(i).compareTo("Random") == 0 && input.get(i+1).compareTo("Date") == 0))
-            {
-
             }
         }
     }
@@ -91,7 +167,7 @@ public class Rules
         int close = 1;
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Please select one to three of the options from the list\n(separate each option with the enter key).\nWhen you have finished, type 'Done' (CaSe sEnsItiVe):");
+        System.out.println("Please select either one or two of the options from the list\n(separate each option with the enter key).\nIf you use multiple options, enter them in the order they would appear in the password.\nWhen you have finished, type 'Done' (CaSe sEnsItiVe):");
         for (int i = 0; i < options.length; i++)
         {
             System.out.println("\t" + options[i]);
@@ -143,7 +219,7 @@ public class Rules
                 gen(character,counter-1,len,chars);
             }
         }
-        
+
         if (pwd.length() == len)
         {
             System.out.println(pwd);

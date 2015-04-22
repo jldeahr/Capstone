@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=args
-comment0.target=void\ main(java.lang.String[])
+comment0.params=
+comment0.target=void\ rulesMain()
 comment0.text=\r\n\ The\ main\ method\ of\ the\ Rules\ class.\r\n\ Runs\ the\ necessary\ methods\ to\ write\ the\ possible\ passwords\ to\ a\ file.\r\n\ \r\n\ @pre\ \ \ \ \ \ the\ user\ will\ choose\ either\ 0,\ 1,\ or\ 2\ options\r\n
 comment1.params=
 comment1.target=void\ userInput()
