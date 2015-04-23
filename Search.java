@@ -15,44 +15,22 @@ public class Search
      * @return  pass    the password belonging to the hash the user enters
      *          "Password not found"    if the password is not found
      */
-    public String find()
+    public String passFinder()
     throws FileNotFoundException
     {
-        //initializes the hash and unhashed counters for parsing through
-        //hashes.txt and unhashed.txt
-        int hCount = 0;
+        //initializes the count of the location of the hash in hashes.txt as an int
+        int hCount = hashSearch();
+        
+        //initializes the unhashed counter for parsing through unhashed.txt
         int uhCount = 0;
         
-        //initializes the hash the user enters as String userHash,
-        //the hash from parsing hashes.txt as String hash,
-        //and the password to be returned as String pass
+        //initializes the password to be returned as String pass
         String pass;
-        String userHash;
-        String hash;
-        
-        //initializes Scanner in to read user input,
-        //Scanner hIn to read from hashes.txt,
-        //and Scanner wIn to read from unhashed.txt
-        Scanner in = new Scanner(System.in);
-        Scanner hIn = new Scanner(new File("hashes.txt"));
+
+        //initializes Scanner wIn to read from unhashed.txt
         Scanner wIn = new Scanner(new File("unhashed.txt"));
         
-        //requests user to enter the hash they want to find the password for
-        //and sets userHash to that value
-        System.out.println("Enter the hash: ");
-        userHash = in.nextLine();
-        
-        //finds the location of the hash the user entered in hashes.txt
-        while (hIn.hasNextLine())
-        {
-            hash = hIn.nextLine();
-            if (userHash.compareTo(hash) != 0)
-            {
-                hCount++;
-            }
-        }
-        
-        //finds the location of the password unhashed.txt,
+        //finds the location of the password in unhashed.txt,
         //for the hash the user entered and returns it
         while (wIn.hasNextLine())
         {
@@ -70,5 +48,42 @@ public class Search
         
         //returns if the password is not found for the specified hash
         return "Password not found.";
+    }
+    
+    public int hashSearch()
+    throws FileNotFoundException
+    {
+        //initializes the hash counter for parsing through hashes.txt
+        int hCount = 0;
+        
+        //initializes the hash from parsing hashes.txt as String hash
+        //and the hash the user is to enter as String userHash
+        String userHash;
+        String hash;
+        
+        //initializes Scanner in to read user input,
+        //Scanner hIn to read from hashes.txt,
+        Scanner in = new Scanner(System.in);
+        Scanner hIn = new Scanner(new File("hashes.txt"));
+        
+        //requests user to enter the hash they want to find the password for
+        //and sets userHash to that value
+        System.out.println("Enter the hash: ");
+        userHash = in.nextLine();
+        
+        //finds the location of the hash the user entered in hashes.txt
+        while (hIn.hasNextLine())
+        {
+            hash = hIn.nextLine();
+            if (userHash.compareTo(hash) != 0)
+            {
+                hCount++;
+            }
+            else
+            {
+                return hCount;
+            }
+        }
+        return hCount;
     }
 }

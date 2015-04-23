@@ -37,7 +37,7 @@ public class Rules
      * The main method of the Rules class.
      * Runs the necessary methods to write the possible passwords to a file.
      * 
-     * @pre      the user will choose either 0, 1, or 2 options
+     * @pre      the user will choose either 1, or 2 options
      */
     public static void rulesMain()
     throws FileNotFoundException
@@ -178,12 +178,11 @@ public class Rules
 
         while (input.size() != 0)
         {
-            System.out.println("removed: " + input.get(0));
             input.remove(0);
         }
 
         Scanner in = new Scanner(System.in);
-        System.out.println("Please select either one or two of the options from the list\n(separate each option with the enter key).\nIf you use multiple options, enter them in the order they would appear in the password.\nWhen you have finished, type 'Done' (CaSe sEnsItiVe):");
+        System.out.println("Please select either one or two of the options from the list\n(separate each option with the enter key).\nIf you use multiple options,enter them in the order they would appear in the password.\nWhen you have finished, type 'Done' (CaSe sEnsItiVe):");
         for (int i = 0; i < options.length; i++)
         {
             System.out.println("\t" + options[i]);
@@ -197,7 +196,6 @@ public class Rules
             {
                 in.close();
                 close = false;
-                System.out.println(input.size());
             }
             else
             {
@@ -233,11 +231,6 @@ public class Rules
                 String character = pwd + chars.get(i);
                 gen(character,counter-1,len,chars);
             }
-        }
-
-        if (pwd.length() == len)
-        {
-            System.out.println(pwd);
         }
     }
 
@@ -326,7 +319,7 @@ public class Rules
      */
     private static String getDay()
     {
-        int day = cal.get(cal.DAY_OF_MONTH) + 1;
+        int day = cal.get(cal.DAY_OF_MONTH);
         String sDay;
         if (day > 9)
         {

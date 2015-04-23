@@ -1,4 +1,5 @@
 #BlueJ class context
 comment0.params=args
 comment0.target=void\ main(java.lang.String[])
+comment0.text=\r\n\ This\ method\ runs\ all\ the\ necessary\ methods\ from\ the\ Search,\ Algorithm,\ and\ Rules\r\n\ classes\ to\ generate\ a\ password\ list,\ a\ hash\ list,\ and\ return\ the\ password.\r\n\ \r\n\ @pre\ Search,\ Rules,\ and\ Algorithm\ classes\ all\ work\ as\ they\ are\ supposed\ to\r\n\ \r\n\ @post\ The\ unhashed\ form\ of\ the\ user's\ password\ is\ printed\ to\ the\ console\r\n
 numComments=1
