@@ -35,3 +35,18 @@ example input:
     
 example output:
     password: acb04-23-2015
+    
+
+    
+This project involves ideas we have discussed this year, including:
+    Usage of Class design - generally used in order to design this program
+    Usage of Scanner - to read from the console, hashes.txt, and unhashed.txt
+    Usage of ArrayLists - for the user entered options, the user entered characters, and the strings generated from the user input characters
+    Usage of Arrays - for the date format options and the options for password format
+    Reading and writing to files - to write the hashed passwords to hashes.txt and the unhashed passwords to unhashed.txt, and reading from unhashed.txt to generate the hashes to write to hashes.txt
+                                   and to search for the given hash in hashes.txt and the password it belongs to in unhashed.txt
+    
+This project also involves some ideas we skimmed the surface of or did not discuss at all, including:
+    Usage of GregorianCalendar - to generate the current year, month, and day for the date option
+    Usage of MessageDigest - to generate the hashes of the passwords in unhashed.txt
+    Usage of Formatter - to format the newly generated hash which will later be added to hashes.txt
