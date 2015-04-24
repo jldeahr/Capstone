@@ -6,9 +6,9 @@ all she needs to know. The comments should usually include at least:
 
 PROJECT TITLE: Capstone
 PURPOSE OF PROJECT: To generate a specific list of passwords and their hashes.
-VERSION or DATE: 4/22/2015
+VERSION or DATE: 4/23/2015
 DEPENDENCIES: None
-HOW TO START THIS PROJECT: Run the main method in the main class.
+HOW TO START THIS PROJECT: Run the main method in the Main class.
 AUTHORS: Joe Deahr
 USER INSTRUCTIONS:
 In order to not take up excessive space on the computer for grading, please only enter

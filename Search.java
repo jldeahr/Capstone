@@ -2,6 +2,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * This class will search for the hashed string and the unhashed string
+ * 
+ * @Joe Deahr
+ * @4/23/2015
+ */
 public class Search
 {
     /**

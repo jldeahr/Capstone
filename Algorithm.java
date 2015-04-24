@@ -12,7 +12,7 @@ import java.util.Scanner;
  * It will also include get methods to get the information from the object.
  * 
  * @Joe Deahr
- * @4/13/215
+ * @4/23/215
  */
 public class Algorithm
 {    
